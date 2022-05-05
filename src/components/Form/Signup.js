@@ -25,7 +25,7 @@ const Signup = () => {
     result = await result.json();
     console.log("signup", result);
     localStorage.setItem("user-info", JSON.stringify(result));
-    navigate("/");
+    navigate("/todo");
   };
   return (
     <VStack spacing="10px">

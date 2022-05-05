@@ -27,7 +27,6 @@ const Login = () => {
     });
     result = await result.json();
     localStorage.setItem(JSON.stringify(result));
-    // if(response.status === 200)
     navigate("/todo");
   };
   return (
