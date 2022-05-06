@@ -52,8 +52,13 @@
 }
 
 .logout {
+  display: flex;
   align-items: center;
-  text-align: end;
+  margin-top: 10px;
   margin-right: 20px;
+  justify-content: flex-end;
 }
 
+.username {
+  margin-right: 10px;
+}

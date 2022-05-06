@@ -17,18 +17,27 @@ const Login = () => {
 
   const submitHandler = async () => {
     let item = { username, password };
-    let result = await fetch("http://192.168.1.23:3000/user/sign-in", {
+    fetch("http://192.168.1.23:3000/user/sign-in", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         Accept: "*/*",
       },
       body: JSON.stringify(item),
-    });
-    result = await result.json();
-    localStorage.setItem(JSON.stringify(result));
-    navigate("/todo");
+    })
+      .then((response) => {
+        if (response.status === 201) {
+          return response.json();
+        }
+        return Promise.reject("Error");
+      })
+      .then((data) => {
+        localStorage.setItem("user", JSON.stringify(data));
+        navigate("/todo");
+      })
+      .catch((err) => console.log(err));
   };
+
   return (
     <VStack spacing="10px">
       <FormControl id="text" isRequired>

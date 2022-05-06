@@ -14,19 +14,27 @@ const Signup = () => {
 
   const submitHandler = async () => {
     let item = { username, password };
-    let result = await fetch("http://192.168.1.23:3000/user", {
+    fetch("http://192.168.1.23:3000/user", {
       method: "POST",
       body: JSON.stringify(item),
       headers: {
         "Content-Type": "application/json",
         Accept: "*/*",
       },
-    });
-    result = await result.json();
-    console.log("signup", result);
-    localStorage.setItem("user-info", JSON.stringify(result));
-    navigate("/todo");
+    })
+      .then((response) => {
+        if (response.status === 201) {
+          return response.json();
+        }
+        return Promise.reject("Error");
+      })
+      .then((data) => {
+        localStorage.setItem("user", JSON.stringify(data));
+        navigate("/todo");
+      })
+      .catch((err) => console.log(err));
   };
+
   return (
     <VStack spacing="10px">
       <FormControl id="first-name" isRequired>
